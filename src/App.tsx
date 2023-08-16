@@ -3,7 +3,8 @@ import './App.css';
 import GameButton from './components/GameButton/GameButton';
 
 function App() {
-  console.log(generateNewPattern([]));
+  const [pattern, setPattern] = React.useState(generateNewPattern([]));
+
   return (
     <div className="App">
       <h1>Simon Says</h1>
