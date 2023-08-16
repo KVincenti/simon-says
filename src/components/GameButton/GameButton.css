@@ -1,4 +1,6 @@
 #firstButton {
     height: 100px;
     width: 100px;
+    cursor: pointer;
+    border-radius: 5px; 
 }
