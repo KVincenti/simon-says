@@ -4,11 +4,13 @@ import GameButton from './components/GameButton/GameButton';
 
 function App() {
   const [pattern, setPattern] = React.useState(generateNewPattern([]));
+  const [currentIndex, setCurrentIndex] = React.useState(0);
 
   return (
     <div className="App">
       <h1>Simon Says</h1>
-      <p>Try you best to follow the pattern!</p>
+      <p>Try your best to follow the pattern!</p>
+      <p>{pattern}</p>
       <GameButton
         color="pink"
         number={1}
@@ -31,17 +33,32 @@ function App() {
       />
     </div>
   );
-}
 
-function onButtonClick(number: number) {
-  console.log(number)
-}
+  function onButtonClick(number: number) {
+    // User selected a wrong number
+    if(number !== pattern[currentIndex]) {
+      console.log("you suck");
+      setCurrentIndex(0);
+      return;
+    }
 
-function generateNewPattern(currentPattern: number[]) {
-  const newPattern = [...currentPattern];
-  const ranNum = Math.ceil(Math.random() * 4);
-  newPattern.push(ranNum);
-  return newPattern;
+    // User finished the current pattern, let's add a new number, and have them start at the beginning again
+    if(currentIndex === pattern.length - 1) {
+      setPattern(generateNewPattern(pattern));
+      setCurrentIndex(0);
+      return;
+    }
+
+    // User got this one right, move them to the next number
+    setCurrentIndex(currentIndex + 1);
+  }
+
+  function generateNewPattern(currentPattern: number[]) {
+    const newPattern = [...currentPattern];
+    const ranNum = Math.ceil(Math.random() * 4);
+    newPattern.push(ranNum);
+    return newPattern;
+  }
 }
 
 export default App;
