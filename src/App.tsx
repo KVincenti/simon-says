@@ -37,7 +37,14 @@ function App() {
   function onButtonClick(number: number) {
     // User selected a wrong number
     if(number !== pattern[currentIndex]) {
-      console.log("you suck");
+      window.alert("Sorry, you lose.")
+      setCurrentIndex(0);
+      return;
+    }
+
+    console.log(currentIndex)
+    if(currentIndex === 9) {
+      window.alert("You win!")
       setCurrentIndex(0);
       return;
     }
